@@ -1,6 +1,6 @@
 Here are my Tex Projects archive
 
-##Build Install
+##Building (optional)
 
 Requires csTex and/or csLatex. On (L)Ubuntu 14 use this command to install:
 
