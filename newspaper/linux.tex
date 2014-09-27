@@ -1,0 +1,14 @@
+\newbox\linuxbox
+\newdimen\linuxw
+\font\linuxa=linuxa at 72.27truept
+\setbox\linuxbox=\vbox{\hbox{%
+\linuxa\char0\char1}}
+\linuxw=\wd\linuxbox
+\setbox\linuxbox=\hbox{\vbox{\hsize=\linuxw
+\parskip=0pt\offinterlineskip\parindent0pt
+\hbox{\linuxa\char0\char1}}}
+\ifx\parbox\undefined
+    \def\setlinux{\box\linuxbox}
+\else
+    \def\setlinux{\parbox{\wd\linuxbox}{\box\linuxbox}}
+\fi

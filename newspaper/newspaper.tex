@@ -1,0 +1,298 @@
+%
+% TeX News, (C) 1996 Henryk Paluch
+% Formát: csPlain-TeX
+% Kódování: UTF-8
+% Použivejte jen a pouze na sve vlastni riziko!
+%
+%
+\chyph % requires csplain
+\nopagenumbers
+% embedded picture (as PK font) is in this resolution
+\pdfpkresolution=300
+
+\hsize=190mm
+%\hoffset=10mm
+\font\svabach=eufb10 at 2.5cm
+\font\velky=csr10 at 2.5cm
+\font\tensv=eufb10
+\font\eightrm=csr8
+\font\fiverm=csr5
+\font\ninerm=csr9
+\font\bigtex=csr12 scaled \magstep4
+\font\twelf=csbx12
+\font\fourt=csbx10 scaled \magstep2
+\font\fourtsym=cmsy10 scaled \magstep2
+\font\maxif=csbx12 scaled \magstep3
+\font\poznf=csssbx10
+\font\wordf=cmbxti10
+% Zde zacinaji TeX News
+{\parindent=0pt
+\hrule                  % vrchní čára
+\vskip 1.5pt            % mezera
+\hbox to \hsize{%       % titulek + "copyright"
+   \vrule
+   \hfil
+    \hbox{{\velky \strut{\TeX\ }}{\svabach NEWS}}
+    \hfil\vrule\hfil
+   \vbox{\vfil
+   \vbox{\hsize=2cm%
+         \hrule height 2pt width 0pt
+         \centerline{\TeX\ {\tensv NEWS}}
+         \vskip 3pt
+         {\fiverm
+         \def\hpx#1{\centerline{#1: H.~Paluch}\vskip -5pt}
+         \hpx{Připravil}
+         \hpx{Napsal}
+         \hpx{Vysázel}
+         \hpx{Vylepšil}
+         \hpx{Vytiskl}
+          }
+         }
+   \vfil}
+   \hfil
+    \vrule%
+     }
+\vskip 1.5pt
+\hrule height 1pt
+\centerline{\fourt      % 14 bodovy font
+        \vrule height 15pt depth 5pt width 0pt  % mezera nad a pod  datem..
+        \def\mujbul{\raise.1ex\hbox{$\bullet$}\ }
+        \textfont2=\fourtsym  % 14 bodovy font pro $\bullet$ !!!
+        \mujbul PRO VŠECHNY \TeX NIKY \mujbul 4.~června 1996\ \mujbul
+        }
+\hrule height 1pt
+\vskip 1.5pt
+% nyní přijdou hlavní 3 boxy
+%
+\newdimen\dimenone
+\newdimen\dimentwo
+\newdimen\dimenthree
+\newdimen\hlavnivyska
+\dimenone=0.20000\hsize
+\dimentwo=0.50000\hsize
+\dimenthree=0.20000\hsize
+\hlavnivyska=19.5cm
+\newbox\boxone
+\newbox\boxtwo
+\newbox\boxthree
+\setbox\boxthree=\vbox{\hsize=\dimenone
+                \eightrm \hbadness=1000 \hfuzz=.1pt
+                \emergencystretch=2em
+                {\vrule height 14.5pt width 0pt depth 6pt \tenrm
+                \twelf Proč jsme tady?}
+                {\it
+                \parskip=1pt plus 5pt minus .1pt
+                Hlavním popudem vydat tyto noviny byl jistý
+                J.~K.~z O. Tento občan neustále napadal geniální
+                \TeX~a neoprávněně vychvaloval jakýsi Word,
+                ačkoliv každému je přece jasné, že \TeX\ se svou
+                jedinečnou kvalitou nedá vůbec srovnávat
+                s~\uv{jedním slovem}.
+
+                \parindent=5pt
+                A proto jsem se rozhodl, že těm hloupým Wordistům
+                dám co proto!
+
+                Stručně řečeno \TeX\ kritizují obvykle jen ti, co ho
+                neznají, resp. ho neznají příliš dokonale. Jak se dá
+                jinak vysvětlit, že si někteří myslí, že {\sl něco }
+                není v \TeX u možné!
+
+                \TeX\ se vyznačuje následujícími schopnostmi:
+                \def\mujit#1\par{\parindent=10pt
+                        \item{--} #1 \par}
+
+                \mujit skutečná nezávislost výstupu na zařízení. \TeX\
+                       generuje DVI (Device Independent), který je 100\%
+                       nezávislý na výstupním zařízení (pokud úmyslně
+                       nepoužijeme {\tt $\backslash$special})
+
+
+                \mujit Pozice znaků jsou uloženy s větší přesnosti než je vlnová
+                       délka světla, tj. optickými prostředky jsou
+                       odchylky neměřitelné
+
+                \mujit kvalitní algoritmus formátování odstavce. Je
+                       možné detailně nastavit všechny tolerance při lámáni
+                       odstavce. Dělení slov (až 256 jazyků současně) je
+                       samozřejmostí
+
+                \mujit dynamické formátování dokumentu. Je možné přesně
+                specifikovat doporučenou, maximální a minimální
+                přípustnou mezeru mezi slovy, řádky a odstavci (tzv.
+                glue - lepidlo). Díky
+                tomu se může \TeX\ snadno přizpůsobit požadavkům sazeče
+                (např. automatické vyplnění stránky)
+
+                \parindent=5pt
+                Myslím si, že možnosti \TeX u hovoří samy za sebe\dots
+
+                \vskip 2.5pt
+                \hrule
+                {\noindent
+                {\vrule height 14.5pt width 0pt depth 6pt%
+                \twelf Obrázky}
+                \par}
+
+                \noindent
+                Mnozí nezna\TeX ové si myslí, že \TeX\ není schopen
+                pracovat s obrázky. Skutečnost pochopitelně není tak
+                černá. Existuje hned několik možností:
+                \def\mujb#1\par{\parindent=10pt
+                        \item{$\bullet$} #1 \par}
+                \font\mflogo=logo10
+                \mujb pomocí {\mflogo METAFONT}u. Vektorové obrázky
+                      můžeme vytvářet rovnou zde, přičemž máme k
+                      dispozici mj. nejen goniometrické funkce, ale také
+                      Bézierovy křivky (co na to {\wordf Word}?)
+                \mujb na import bitmap, GIF, PCX apod. můžeme použít
+                      konverzní program {\tt bm2font}
+                \mujb můžeme využít konverze do PostScriptu a
+                      naimportovat si EPS
+
+                  }
+                }
+\setbox\boxtwo=\vbox{\hsize=\dimentwo%
+                    \leftline{\maxif Přichází nová \TeX nologie}
+                    \vskip -2pt
+                    \leftline{\poznf Jak \TeX\ změnil svět}
+                    \parindent=5pt
+                    Je obdivuhodné, že tak velkolepé dílo jako \TeX\
+                    napsal jediný člověk --- Donald Ervin Knuth. Jako by
+                    to bylo málo, autor se navíc rozhodl, že celou svojí
+                    práci dá k dispozici všem ostatním --- \TeX\ je
+                    možné zdarma získat (např. na internetu).
+
+                    Jedním z poznávacích znaků \TeX u je vlastní rodina
+                    fontů zvaná {\sl Computer Modern}. Tato písma se
+                    vyznačují estetickým vzhledem a dobrou čitelností.
+                    Naproti tomu, ke komerčním systémum se vždy
+                    (pochopitelně) dodávají fonty, které jsou
+                    nejlevnější, ale také nepříliš pohledné. Typickými
+                    zástupci jsou {\sl Helvetica} a {\sl Times New
+                    Roman}.
+
+
+                    \moveright.50\dimentwo\hbox to 0pt{\vtop{\ninerm
+                    \newdimen\varunit
+                    \varunit=0.009\dimentwo
+                    \baselineskip10.5pt plus 0pt
+                    \parshape 9
+                        -30.74\varunit 61.48\varunit
+                        -44.19\varunit 88.39\varunit
+                        -51.70\varunit 103.40\varunit
+                        -55.72\varunit 111.45\varunit
+                        -57.00\varunit 114.00\varunit
+                        -55.72\varunit 111.45\varunit
+                        -51.70\varunit 103.40\varunit
+                        -44.19\varunit 88.39\varunit
+                        -30.74\varunit 61.48\varunit
+                        \noindent
+                        \hbadness 6000
+                        \tolerance 9999
+                        \pretolerance 0
+                        Je to k neuvěření, ale řada lidí se mylně
+                        domnívá, že \TeX\ není schopen flexibilně
+                        formátovat odstavec do předem zadaného tvaru.
+                        Jak je patrné jde o pouhou domněnku, která není
+                        příliš na místě. Je možné zadat odsazení a délku
+                        každého řádku v odstavci -- hlavní výhodou je,
+                        že \TeX\ sám zajistí správné lámaní textu do
+                        odstavce. Není tedy problém naformátovat si text
+                        dle libosti a vkusu. Zajímalo by mě, milí
+                        Wordisté, jak by si s něčím takovým poradil váš
+                        dosud oblíbený \uv{Wordprocesor}.
+
+                        }\hss%
+                      }
+                      \vskip 1.5pt
+                      \hrule
+                      \vskip 1.5pt
+                      \leftline{\maxif Tabulky}
+                      Tvorba tabulek v \TeX u nemusí být vždy triviální
+                      záležitostí, na druhou stranu jsem obdařeni velkou
+                      flexibilitou, která je omezena jen našimi
+                      možnostmi. Mezi další výhody patří pro \TeX\
+                      typická absolutní přesnost (není třeba se obávat
+                      Wordovské tolerance \uv{plus mínus autobus}).
+
+                      \def\LaTeX{L\kern-.36em\raise.5ex\hbox{\sevenrm
+                                                      A}\kern-.12em\TeX}
+                      \def\AMS{$\cal A\kern-.166em\lower.5ex\hbox{$\cal
+                                                     M$}\kern-.075em S$}
+
+
+  %                      \vskip 10pt
+                \vglue 10pt plus 50pt minus 0pt
+
+                      \centerline{%
+                      \vbox{\offinterlineskip
+                            \hrule         % uvodni linka
+                            \halign{&\vrule#&\quad\hfil#\quad\cr
+                            height2pt&\omit&&\omit&&\omit&\cr % mala mezirka
+                            &\strut Program\hfil&&Verze\hfil&&Cena\hfil&\cr    % hlavicka
+                             height2pt&\omit&&\omit&&\omit&\cr % mezera s carama
+                             \noalign{\hrule height 2pt}
+                             \noalign{\vskip -2pt}
+                             height2pt&\omit&&\omit&&\omit&\cr % mezera s carama
+                             &\strut{} &&plain-\TeX\hfil&&0,- Kč&\cr
+                             &{}&&\multispan3\hrulefill&\cr
+                             &\strut{} &&\AMS-\TeX \hfil&&0,- Kč&\cr
+                             &{}&&\multispan3\hrulefill&\cr
+ &\vbox to 0pt{\vss\hbox{\hss\hbox{\bigtex \TeX}\hss}\vskip 1pt}\hfil%
+                                  &&\strut \LaTeX\hfil&&0,- Kč&\cr
+                              \noalign{\hrule}
+                              \noalign{\vskip -1pt}
+                             height3pt&\omit&&\omit&&\omit&\cr % mezera s carama
+                             \noalign{\vskip -1pt}
+                             \noalign{\hrule}
+                             &\strut{}{\wordf Word}\hfil&& 2.0,6.0,7.0\hfil&&%
+                               $\infty$,- Kč&\cr
+                              }
+                            \hrule
+                            }
+                         }
+
+                \vglue 18pt plus 100pt minus 0pt
+                \hrule
+                \vskip 1.5pt
+                \leftline{\maxif Přenositelnost}
+                \vskip -2pt
+                {\poznf \noindent
+                Přenositelnost programů začíná být důležitým aspektem
+                při jejich vývoji.\par
+                }
+                \vskip 4pt
+                % Pozor! nyní definujeme trojici boxů
+                \newbox\pboxone
+                \newbox\pboxtwo
+                \newbox\pboxthree
+                \setbox\pboxthree=\vbox{\tolerance=9999 \hsize=0.295\dimentwo
+                \emergencystretch=1em
+                Je logické, že autor \TeX u věnoval této otázce mnoho
+                pozornosti. Díky tomu existují implementace \TeX u pro
+                UNIX (včetně {\bf LINUX}u!), OS/2, AMIGA OS, Atari ST, Mac,
+                VMS, DOS a dokonce i Windows (pro sado-maso).
+                }
+                \splittopskip=0pt
+                \setbox\pboxone=\vsplit\pboxthree to 82pt
+                \setbox\pboxtwo=\vbox to 88pt{\hsize=0.295\dimentwo
+                          \font\linux=linuxa at 72.27truept
+                          \vfil
+                          \centerline{\linux\hbox{\char0\char1}}
+                          \vskip 1.5pt
+                          \centerline{\it Nejlepší OS}
+                          \vfil}
+                \vskip 1.5pt
+                \line{\vbox to 88pt{\box\pboxone\vfil}\hfil%
+                       \vrule\hfil\box\pboxtwo\hfil\vrule%
+                       \hfil\vbox to 88pt{\box\pboxthree\vfil}\hfil}
+                }
+\setbox\boxone=\vsplit\boxthree to \hlavnivyska
+\line{\vrule\hfil\box\boxone\hfil%
+      \vrule\hfil\vbox to \hlavnivyska{\box\boxtwo\vfil}\hfil%
+      \vrule\hfil\vbox to \hlavnivyska{\box\boxthree}\hfil\vrule}
+\vskip 1.5pt
+\hrule
+}
+\bye
