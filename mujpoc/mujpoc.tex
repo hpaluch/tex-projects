@@ -1,0 +1,612 @@
+% encoding UTF-8
+% Můj počítač 0.0
+%
+%
+%
+\chyph  % requires csplain (pdf)TeX format
+%\input czech.sty
+%\bigskipamount=12pt
+%\medskipamount=6pt
+%\smallskipamount=3pt
+\raggedbottom   % v nouzi může vynechat místo dole na stránce
+%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%% Fonty
+%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\font\ftitul=csssbx10 scaled \magstep5
+\font\fautor=csssdc10 scaled \magstep3
+\font\bbf=csbx10 scaled \magstep4
+\font\bmf=csbx10 scaled \magstep2
+\font\fsec=csbx10 scaled \magstep1
+\font\fuvnap=csssqi8 scaled \magstep4
+\font\fuvtext=csti10
+\font\sc=cscsc10
+\font\consym=conn
+\font\eightrm=csr8
+
+%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%% Makra
+%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Registry
+\newcount\kapnum	% číslování kapitol
+\newcount\secnum	% číslování odstavců (sekcí)
+\newread\test
+\newwrite\toc
+
+% \newpage - nová stránka
+\def\newpage{\par\vfill\penalty-10000\break}
+
+
+% \softinput - test na přítomnost souboru (pro obsah, atd.)
+\def\softinput#1{\immediate\openin\test=#1
+	\ifeof\test\message{Varování: soubor #1 nebyl nalezen. Spustťě ještě jednou}%
+	  \else\immediate\closein\test\input #1\fi}
+
+%% generovaní obsahu
+% \heretoc - vysází obsah na určené místo
+% \maketoc - tvorba referencí pro obsah
+
+\def\writetoc#1#2{}
+\def\maketoc{\immediate\openout\toc=\jobname.toc
+       \def\writetoc##1##2{\write\toc{\string\tocline{\string##1}%
+                {##2}{\the\pageno}}}}
+\output={\lineskiplimit=0pt \plainoutput} % výstupní rutina stránky
+\def\heretoc{\baselineskip=16pt \lineskiplimit=-\maxdimen
+      \leftline{\bbf \vrule height 18pt width 0pt Obsah}\nobreak\vskip 8pt
+      \softinput{\jobname.toc}\par \kapnum=0}
+\def\tocline#1{#1}
+\def\rdotfill{\leaders\hbox to 5pt{\hss.\hss}\hfill}
+\def\tkap#1#2{\advance\kapnum by 1
+	      \secnum=0
+	      \line{\hbox to 1.5em{\hfil\bf\the\kapnum. }
+	      #1\unskip\rdotfill\ #2}}
+\def\tsec#1#2{\advance\secnum by 1
+              \line{\hbox to 40pt{\hfil\bf\the\kapnum.\the\secnum\ }
+               #1\unskip\rdotfill\ #2}}
+
+\def\chapter#1{\newpage
+		 \advance\kapnum by 1
+		 \secnum=0
+		 \leftline{\bmf \the\kapnum. #1}
+		 \vskip 5pt
+		 \writetoc\tkap{#1}\par	
+               }
+
+\def\section#1{\medskip\nobreak
+		\advance\secnum by 1
+		\leftline{\fsec \the\kapnum.\the\secnum. #1}\nobreak
+		\writetoc\tsec{#1}\par\nobreak}
+				
+% odsazený odstavec (něco jako description v LaTeXu)
+\def\hangpar #1\cr#2\par{{\parindent=0pt % dvojité {{ jsou tu proto, aby
+                         \hangafter=1    % tyto parametry neovlivnily
+                         \hangindent=30pt % ostatní odstavce mimo \hangpar
+                         {\sc #1}\hfil\break
+                         #2\par}}
+% kolečkovaný item
+\def\itbul{\item{$\bullet$}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%% 
+%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%% Titulní stránka
+%%%%%%%%%%%%%%%%%%%%%%%%%
+\nopagenumbers
+\hbox{ }
+\vfill
+\leftline{\ftitul Můj počítač}
+\vskip 2pt
+\hrule depth 5pt
+\vskip 2pt
+\rightline{\fautor Henryk Paluch}
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%% Obsah
+%%%%%%%%%%%%%%%%%%%%%%%%%
+\footline={\hss\tenrm\folio\hss}
+\pageno=-1
+\heretoc           
+\maketoc           
+\newpage
+\nopagenumbers
+\baselineskip=12pt      % obsah nám trošku změnil řádkování
+\lineskip=1pt           % tak to zase dáme do pořádku...
+\lineskiplimit=0pt
+%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%% Úvod 
+%%%%%%%%%%%%%%%%%%%%%%%%%
+{\fuvnap \noindent Úvodem}
+\vskip 5pt
+{\fuvtext
+Hlavním důvodem proč píši tuto knihu, je vyznat se v dnešní džungli hardware.
+Zažil jsem spoustu nezapomenutelných chvílí při konfigurování svého počítače
+a~nerad bych to prožíval znovu. Proto jsem se rozhodl stvořit tento malý
+průvodce. Pokud pomůže i někomu jinému, než jsem já, budu jen potěšen.
+Nuže, obraťte list\dots
+
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\pageno=1
+\footline={\hss\tenrm\folio\hss}
+%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%% Kapitola I. základní popis
+%%%%%%%%%%%%%%%%%%%%%%%%%
+\def\oldsym{\dag}
+\def\newsym{$\star$}
+\def\krat{$\times$}
+\chapter{Základní popis}
+V této kapitole najdete podrobné údaje o zařízeních, která používám.
+Symbolem \newsym\ jsem označil v současné době používaný hardware a
+ symbolem \oldsym\ původní (obvykle již zastaralý) hardware. %fuj to jsou hsnusné věty
+
+\section{Původní komponenty '93}
+\item{\oldsym}
+   Motherboard {\sc 386SXG2A Turbo AT 386SX 25/33 MHz}, CPU {\sc AMD
+   386SX/SXL~33}, chipset {\sc Headland HT18/C WK41017}, frekvence 33/8 MHz,
+   původně 2MB, později 4MB 32pin SIMM
+\item{\oldsym}
+   I/O karta neznámého původu (Čína?), čip {\sc TS8460}, 1\krat IDE,
+    1\krat FDC , 2\krat S
+   (16450), 1\krat P, 1\krat Game
+\item{\oldsym}
+   SVGA karta {\sc REALTEK RTG3105, 9230C}, {\sc CTC 104776AE-80},
+   512kB, max. 1024\krat 768 neprokládané,  VESA BIOS 
+\item{\newsym}
+   Floppy mechanika $5^{1/4}$ {\sc Panasonic JU-475-4 A27}
+\item{\newsym}
+   Floppy mechanika $3^{1/2}$ {\sc YE-DATA YD-702 B-6037B B}
+\item{\newsym}
+   Pevný disk IDE {\sc IBM: WDA-L42, 40MB w/32KB Cache, CHS=977/5/17,
+   MaxMult=64}
+   
+\section{Rok '94}
+\item{\newsym}
+   Pevný disk IDE {\sc QUANTUM LPS340A, 325MB w/98KB Cache, CHS=1011/15/44,
+   MaxMult=8}
+\section{Rok '95}
+\item{\newsym}
+   zvuková karta SF16-VIP, ViBRA-16, 16bitů 44kHz stereo, 2\krat 4W, 4\krat CD-ROM
+   rozhraní na IDE, Panasonic, Mitsumi a Sony
+
+\section{Nové komponenty '96}
+\item{\newsym}
+   základní deska {\sc Octek HIPPO 10 486}, CPU AMD486DX4/100, 16M 72pin
+   SIMM, integrovaná I/O karta, 2\krat IDE, 1\krat FDC, 2\krat S, 1\krat P,
+   1\krat Game
+\item{\newsym}
+   grafická karta {\sc VL-VGA-28}, chipset {\sc Cirrus Logic CLDG-5428},
+   1MB RAM
+\item{\newsym}
+   IDE CD-ROM {\sc  F HO P.1 0, ATAPI, CDROM drive}, BTC Behavior Group,
+   6\krat speed, ISO9660 (High Sierra), CD-ROM/XA, Multisession, 
+   Photo-CD, CD+
+
+\section{Poznatky z provozu}
+\hangpar MB386SX\cr
+ výborná kompatibilita s různými operačními systémy (LINUX, FreeBSD, NetBSD,
+ a dokonce i OS/2 (je tam zmínka i v originální příručce k MB --- v roce 93),
+ což je takřka neuvěřitelné. S původním FDC řadičem však
+ má novější LINUX (1.1.40? a vyšší) problémy --- DMA přetečení. Stačí však
+ vyhodit nadbytečná volání {\tt floppy\_request\_irq\_and\_dma()} například tak,
+ že se ve
+ {\tt floppy\_release\_irq\_and\_dma()} tvrdě napíše {\tt usage\_count=2; } a
+ náhle vše funguje. Neznám žádný jiný počítač s tímto problémem\dots
+ 
+\hangpar SVGA Realtek\cr
+ s určitými programy se ráda kouše (The Lost Vikings, Unreal Demo), pomůže
+ zpomalení pomocí Windows (to jsi rád Bille, co?). Snad
+ jde o příliš rychlý přístup na paletové registry, ale nikdy se mi to
+ nepodařilo crašnout vlastním programem.
+ Přestože je tato karta
+ zcela nestandardní a neumí nic víc než základní SVGA rozlišení, má jednu
+ neuvěřitelnou věc --- VESA BIOS(!) --- na rok 93 neuvěřitelné\dots
+ 
+\hangpar zvuková karta\cr
+ je problematické zařízení. Největší problém způsobuje Plug \& Play (jak se
+ dalo čekat). Co je nejhorší --- po zapnutí počítače se karta vždy zresetuje
+ do implicitní konfigurace a je nutné spustit dosácký program, aby se
+ překonfigurovala. Na druhé straně, díky originálnímu čipu (?) od Creative
+ Technology, je ViBRA skutečně 100\% kompatibilní - dokonce i drivery pro
+ OS/2 ji najdou (ve kterých je důsledná proti-klonová kontrola --- specialita
+ firmy Creative Labs!). Při určité konstelaci příkazů a hardware ta potvůrka
+ ráda vynechává sem tam nějaký bajtík pří rec/play (přesněji - nejdříve
+ vynechá 1, pak 2\dots). Může to někdo potvrdit?
+
+\hangpar hardisky\cr
+ QUANTUM je překvapivě rychlé, ale již po necelých dvou letech se objevilo
+ pár vadných sektorů, naštěstí nepřibývají další. Pokud je IBM zapojené jako
+ Slave, pak se objeví zajímavý problém --- občasné zasekávání disků, údajně
+ kvůli ztraceným přerušením (myslím, že přerušení se neztratí, ale řadič
+ Master disku není ochoten příliš dlouho čekat). Řešení zpočívá v použití
+ multisektorových operací (LINUX - příkaz {\tt hdparm -m xx /dev/hdb}),
+ NetBSD 1.1 jej používá automaticky, OS/2 Warp pravděpodobně taky. Pod DOSem
+ se díky jeho neefektivitě nic neprojeví. Kvalita IBM hardisku je
+ neuvěřitalná --- při 2MB RAM jsem na něm nekolikrát kompiloval LINUXí jádro
+ (asi 20 hodin nepřetržitého swapování) a dosud na něm není jediný vadný
+ sektor
+
+\hangpar MB Octek\cr
+ zatím jsem zjistil nekompatibilitu řadiče klávesnice. Systémy pracující v
+chráněném režimu (LINUX, Warp) nejsou schopné zresetovat počítač. OS/2 Warp
+potřebuje novější {\tt IBMKBD.SYS} jinak se preventivně rovnou kousne. Další
+problém zpočívá v integrovaném I/O řadiči. Je nutné programově povolit
+sekundární řadič, jumpery nestačí. Ačkoliv se dodávají dokonce i ovladače
+pro OS/2, ty zas neznají IDE CD-ROM, takže na
+optimalizace je nejlepší se vykašlat. Firemní ovladače umí využít 32bitový
+přístup na IDE periferie (neplést s tim paskvilem ve Windows ---~řadič
+umí provádět transormaci 16~--~32 bitů) a je dokonce schopen zakázat zápis
+do MBR. Umí také velice efektivně regulovat přenosovou rychlost. Jen je
+hloupé, že to všechno potřebuje zvláštní ovladač!
+
+ 
+\section{Přehled přerušení}
+
+Zjistit přiřazeni jednotlivých přerušení je v počítačích IBM PC
+kompatibilních přímo nadlidský úkol. Kdykoliv objevím někde seznam vektorů
+přerušení, vždy se líší přinejmenším v úplnosti. Proto i já přícházím se
+svojí troškou do mlýna.
+
+\bigskip
+\centerline{
+\vbox{\offinterlineskip
+      \hrule
+      \halign{&\vrule#&\strut\quad#\hfil\quad\cr
+        height 2pt&\omit&&\omit&\cr
+        &\hfil Číslo přerušení&&\hfil Popis&\cr
+        height 2pt&\omit&&\omit&\cr
+        \noalign{\hrule}
+        \noalign{\hrule}
+        &IRQ0&&časovač&\cr
+        &IRQ1&&klávesnice&\cr
+        &IRQ2&&přesměrováno na IRQ9 (?)&\cr
+        &IRQ3&&2. seriový port&\cr
+        &IRQ4&&1. seriový port&\cr
+        &IRQ5&&2. paralelní port&\cr
+        &IRQ6&&FDC&\cr
+        &IRQ7&&1. paralelní port&\cr
+        \noalign{\hrule}
+        &IRQ8&&přerušení hodin RTC&\cr
+        &IRQ9&&nejčastěji přerušení od VGA&\cr
+        &IRQ10&& ??? &\cr
+        &IRQ11&& ??? &\cr
+        &IRQ12&& ??? &\cr
+        &IRQ13&& kooprocesor &\cr
+        &IRQ14&& 1. IDE řadič &\cr
+        &IRQ15&& 2. IDE řadič &\cr
+        height 2pt&\omit&&\omit&\cr
+        }
+      \hrule
+      }  
+  }    
+\bigskip
+
+\itbul
+  IRQ8-15 jsou dostupná pouze pro 16bitové karty
+
+\itbul
+  přerušení RTC je implicitně zakázáno, abyste jej využili, musíte
+  odblokovat RTC
+
+\itbul
+  pokud nějaké přerušení používá dodatečně instalovaný hardware, bývá vhodné
+  je nejdříve odmaskovat (porty {\tt 21H}, {\tt A1H}).
+
+\itbul
+  pokud potvrzujete IRQ8--15, pak musíte vyslat \uv{outy} oběma řadičům!!!
+  Tedy:\hfil\break
+  {\tt \obeylines
+  mov al,20H
+  out 0A0H,al
+  out 020H,al
+  \hbox{ }
+  }
+  
+\itbul 
+  protože INT 08H--0FH koliduje s vyjímkami v chráněném režimu, musí  DOS
+ extendery a také všechny pořádné OS přeprogramovat řadič přerušení. Např.
+ extender {\tt go32.exe} je přesune do INT 80H--88H. Není bez zajímavosti,
+ že službě na nastavení oblsuhy přerušení v chráněném režimu zadáváte číslo
+ {\bf nepřesměrovaného} vektoru (např. 08H), ale obsluze pro realný režim
+ musíte zadat 80H !!!. Dodávám, že to, která rutina se vyvolá, závisí na tom,
+ zda v době, kdy nastalo přerušení, je procesor zrovna v realném nebo
+ chráněném režimu (!) Tyto vlastnosti byly pozorovány pod extendrem {\tt
+ go32.exe} bez DPMI.
+
+\section{DMA řadič}
+
+Nejmystičtější komponenta PC. Originální DMA řadič od Intelu byl určen pro
+8-bitové počítače, proto by vás nemělo překvapit, že délka přenosu je 
+64kB pro kanály 0--3 a 128kB pro 4--7. Musíte navíc zajistit, aby nedošlo
+k překročení {\bf fyzické} hranice 64kB. Nyní už asi chápete, proč DMA
+potřebuje navíc Page Registry. Mimochodem, 8-bitové kanály jsou obvykle
+schopné adresovat jen 1MB, i když někdy i 16MB. 
+
+
+\bigskip
+\centerline{
+\vbox{\offinterlineskip
+      \hrule
+      \halign{&\vrule#&\strut\quad#\hfil\quad\cr
+        height 2pt&\omit&&\omit&\cr
+        &\hfil Číslo kanálu&&\hfil Popis&\cr
+        height 2pt&\omit&&\omit&\cr
+        \noalign{\hrule depth 2pt}
+        &0&&XT --- DRAM refresh, AT --- volný&\cr
+        &1&&IBM SDLC (=volný)&\cr
+        &2&&Floppy&\cr
+        &3&&1. IDE řadič&\cr
+        \noalign{\hrule}
+        &4&&kaskáda&\cr
+        &5&&volný ?&\cr
+        &6&&volný ? &\cr
+        &7&&volný ?&\cr
+        height 2pt&\omit&&\omit&\cr
+        }
+      \hrule
+      }  
+  }    
+\bigskip
+
+
+\itbul
+  IDE harddisky obvykle nepřenášejí data pomocí DMA (ve standardu ATA je
+  implementace DMA {\bf nepovinná}. Některá dema (Mečiarnátor) však
+  DMA přenos používají
+  
+\itbul
+  jedinnou spolehlivou programátorskou příručkou k DMA řadiči jsou zdrojáky
+  LINUXu ({\tt asm/dma.h}). Vyplatí se nevěřit sebevědomým
+  knihám. Dalším užitečným zdojem je {\tt sblaster.zip}.
+  
+
+%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%% Kapitola II. konektory
+%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Konektory na základní desce}
+\section{Napájení}
+
+\def\rbbox#1{\vbox to 10pt{\vfil\hbox{\eightrm #1}\vfil}}
+\def\konnap#1{\hbox{%
+             \hbox{\consym 3}
+             \vbox{\baselineskip=10pt
+                   \lineskiplimit=-\maxdimen
+                   \rbbox{1#1}
+                   \rbbox{2#1}
+                   \rbbox{3#1}
+                   \rbbox{4#1}
+                   \rbbox{5#1}
+                   \rbbox{6#1}
+                   }
+                  }
+            }      
+
+\medskip
+\hbox{\hskip 20pt
+\hbox{ \valign{\vfil#\vfil\cr
+        \hbox to 40pt{\vbox{%
+              \baselineskip=60pt
+              \lineskiplimit=-\maxdimen
+              \konnap{a}
+              \konnap{b}
+             }\hfil}\cr
+\hbox{\qquad
+\vbox{\offinterlineskip
+      \hrule
+      \halign{&\vrule#& \strut\quad#\hfil\quad\cr
+        height2pt&\omit&&\omit&&\omit&\cr
+        &\hfil PIN&&\hfil Barva&&\hfil Popis&\cr
+        height2pt&\omit&&\omit&&\omit&\cr
+        \noalign{\hrule depth 2pt}
+        &1a&&???&&Power Good&\cr
+        &2a&&???&&+5V&\cr
+        &3a&&???&&+12V&\cr
+        &4a&&???&&-12V&\cr
+        &5a&&černá&&GND&\cr
+        &6a&&černá&&GND&\cr
+        \noalign{\hrule}
+        &1b&&černá&&GND&\cr
+        &2b&&černá&&GND&\cr
+        &3b&&???&&-5V&\cr
+        &4b&&???&&+5V&\cr
+        &5b&&???&&+5V&\cr
+        &6b&&???&&+5V&\cr
+        }
+      \hrule
+      }}\cr
+        }
+     } 
+   }   
+\medskip        
+      
+\section{Turbo přepínač}
+
+\medskip
+\hbox{\hskip 20pt
+  \valign{\vfil#\vfil\cr
+    \hbox to 40pt{\vbox{\offinterlineskip
+      \baselineskip=10pt
+      \lineskiplimit=-\maxdimen
+      \hbox{{\consym 1}\ \raise 2.5pt\hbox{\eightrm 1}}      
+      \hbox{{\consym 1}\ \raise 2.5pt\hbox{\eightrm 2}}      
+         }\hfil}\cr
+    \hbox{\qquad
+      \vbox{\offinterlineskip
+       \hrule
+       \halign{&\vrule#& \strut\quad#\hfil\quad\cr
+         height2pt&\omit&&\omit&&\omit&\cr
+         &\hfil PIN&&\hfil Barva&&\hfil Popis&\cr
+         height2pt&\omit&&\omit&&\omit&\cr
+         \noalign{\hrule depth 2pt}
+         &1&&bílá&&signál&\cr
+         &2&&žlutá&&zem&\cr
+         &3&&černá&&signál &\cr
+        }
+      \hrule
+      }}\cr
+     }
+   }      
+\medskip         
+
+\itbul
+ Ačkoliv Turbo přepínač má 3 vodiče, na MB jsou jen 2 kontakty. Je možné si
+ vybrat, jestli bude turbo režim při zapnutém nebo vypnutém přepínači???
+
+\section{Turbo LED}
+ 
+\medskip
+\hbox{\hskip 20pt
+  \valign{\vfil#\vfil\cr
+    \hbox to 40pt{\vbox{\offinterlineskip
+      \baselineskip=10pt
+      \lineskiplimit=-\maxdimen
+      \hbox{{\consym 1}\ \raise 2.5pt\hbox{\eightrm 1}}      
+      \hbox{{\consym 1}\ \raise 2.5pt\hbox{\eightrm 2}}      
+         }\hfil}\cr
+    \hbox{\qquad
+      \vbox{\offinterlineskip
+       \hrule
+       \halign{&\vrule#& \strut\quad#\hfil\quad\cr
+         height2pt&\omit&&\omit&&\omit&\cr
+         &\hfil PIN&&\hfil Barva&&\hfil Popis&\cr
+         height2pt&\omit&&\omit&&\omit&\cr
+         \noalign{\hrule depth 2pt}
+         &1&&šedá&&LED-&\cr
+         &2&&červená/nic&&+5V&\cr
+        }
+      \hrule
+      }}\cr
+     }
+   }      
+\medskip         
+
+\itbul
+  LED dioda se chová jako normální dioda s tím rozdílem, že v propustném
+směru svítí (protékající proud ale nesmí být příliš velký, obvykle asi
+20~mA, jinak si budete muset pořídit novou).
+Pokud jí nahodou zapojíte obráceně, pak sice nebude svítit, ale nic
+se nestane
+
+
+\section{Reset}
+ 
+\medskip
+\hbox{\hskip 20pt
+  \valign{\vfil#\vfil\cr
+    \hbox to 40pt{\vbox{\offinterlineskip
+      \baselineskip=10pt
+      \lineskiplimit=-\maxdimen
+      \hbox{{\consym 1}\ \raise 2.5pt\hbox{\eightrm 1}}      
+      \hbox{{\consym 1}\ \raise 2.5pt\hbox{\eightrm 2}}      
+         }\hfil}\cr
+    \hbox{\qquad
+      \vbox{\offinterlineskip
+       \hrule
+       \halign{&\vrule#& \strut\quad#\hfil\quad\cr
+         height2pt&\omit&&\omit&&\omit&\cr
+         &\hfil PIN&&\hfil Barva&&\hfil Popis&\cr
+         height2pt&\omit&&\omit&&\omit&\cr
+         \noalign{\hrule depth 2pt}
+         &1&&bílá&&signal&\cr
+         &2&&červená&&GND&\cr
+        }
+      \hrule
+      }}\cr
+     }
+   }      
+\medskip         
+
+\itbul
+  vzhledem k tomu, že Reset je obyčejný spínač, nemusíte si s polaritou
+lámat hlavu
+
+\section{Speaker}
+
+\medskip
+\hbox{\hskip 20pt
+  \valign{\vfil#\vfil\cr
+    \hbox to 40pt{\vbox{\offinterlineskip
+      \baselineskip=10pt
+      \lineskiplimit=-\maxdimen
+      \hbox{{\consym 1}\ \raise 2.5pt\hbox{\eightrm 1}}      
+      \hbox{{\consym 1}\ \raise 2.5pt\hbox{\eightrm 2}}      
+      \hbox{{\consym 1}\ \raise 2.5pt\hbox{\eightrm 3}}      
+      \hbox{{\consym 1}\ \raise 2.5pt\hbox{\eightrm 4}}      
+         }\hfil}\cr
+    \hbox{\qquad
+      \vbox{\offinterlineskip
+       \hrule
+       \halign{&\vrule#& \strut\quad#\hfil\quad\cr
+         height2pt&\omit&&\omit&&\omit&\cr
+         &\hfil PIN&&\hfil Barva&&\hfil Popis&\cr
+         height2pt&\omit&&\omit&&\omit&\cr
+         \noalign{\hrule depth 2pt}
+         &1&&černá&&Data out&\cr
+         &2&&nic&&nezapojeno&\cr
+         &3&&nic&&GND&\cr
+         &4&&červená&&+5V&\cr 
+        }
+      \hrule
+      }}\cr
+     }
+   }      
+\medskip         
+
+\itbul
+  dokud nehodláte připojit výstup od PC Speakeru na Sound Blaster, pak se
+  rovněž nemusíte zabývat polaritou
+  
+\section{Power LED \& KeyLock}
+
+\medskip
+\hbox{\hskip 20pt
+  \valign{\vfil#\vfil\cr
+    \hbox to 40pt{\vbox{\offinterlineskip
+      \baselineskip=10pt
+      \lineskiplimit=-\maxdimen
+      \hbox{{\consym 1}\ \raise 2.5pt\hbox{\eightrm 1}}      
+      \hbox{{\consym 2}\ \raise 2.5pt\hbox{\eightrm 2}}      
+      \hbox{{\consym 1}\ \raise 2.5pt\hbox{\eightrm 3}}      
+      \hbox{{\consym 1}\ \raise 2.5pt\hbox{\eightrm 4}}      
+      \hbox{{\consym 1}\ \raise 2.5pt\hbox{\eightrm 5}}      
+         }\hfil}\cr
+    \hbox{\qquad
+      \vbox{\offinterlineskip
+       \hrule
+       \halign{&\vrule#& \strut\quad#\hfil\quad\cr
+         height2pt&\omit&&\omit&&\omit&\cr
+         &\hfil PIN&&\hfil Barva&&\hfil Popis&\cr
+         height2pt&\omit&&\omit&&\omit&\cr
+         \noalign{\hrule depth 2pt}
+         &1&&zelená&&LED+&\cr
+         &2&&nic&&klíč&\cr
+         &3&&černá&&GND (LED-)&\cr
+         &4&&modrá&&KeyLock&\cr
+         &5&&černá&&GND&\cr 
+        }
+      \hrule
+      }}\cr
+     }
+   }      
+\medskip         
+  
+  
+      
+\chapter{Konektory na periferiích}
+\section{I/O konektory}
+ 
+\section{Disketové mechaniky}  
+
+\section{Hard disky}
+
+\section{CD ROM}
+
+sal sdlfkajslf ajsklfaslf jslkaf jaslk fasf
+as fljsa fl aslfk aslfk jaslkf kaslfjsalfjkaslf 
+
+\bye
