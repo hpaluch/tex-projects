@@ -1,6 +1,6 @@
 *.log
 *.toc
-*.tfm
-*.600pk
+conn.*pk
+conn.tfm
 *.swp
 
